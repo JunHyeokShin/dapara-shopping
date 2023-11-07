@@ -2,8 +2,9 @@
 import React, { useEffect } from 'react'
 import Header from './Header'
 import CartSidebbar from './CartSidebbar'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading } from '@/redux/slices/cartSlice'
+import { usePathname } from 'next/navigation'
 
 export default function App({ children }) {
   const dispatch = useDispatch()
@@ -12,9 +13,12 @@ export default function App({ children }) {
     dispatch(hideLoading())
   }, [dispatch])
 
+  const { cartItems, loading } = useSelector((state) => state.cart)
+  const pathname = usePathname()
+
   return (
     <div>
-      <div className="mr-32">
+      <div className={loading ? '' : cartItems.length > 0 && (pathname === '/' || pathname.indexOf('/product/') >= 0) ? 'mr-32' : ''}>
         <Header />
         <main className="p-4">{children}</main>
       </div>

@@ -43,13 +43,20 @@ const cartSlice = createSlice({
 
       Cookies.set('cart', JSON.stringify(state))
     },
-
+    saveShippingAddress: (state, action) => {
+      state.shippingAddress = action.payload
+      Cookies.set('cart', JSON.stringify(state))
+    },
+    savePaymentMethod: (state, action) => {
+      state.paymentMethod = action.payload
+      Cookies.set('cart', JSON.stringify(state))
+    },
     hideLoading: (state) => {
       state.loading = false
     },
   },
 })
 
-export const { addToCart, removeFromCart, hideLoading } = cartSlice.actions
+export const { addToCart, removeFromCart, saveShippingAddress, ShippingAddress, savePaymentMethod, hideLoading } = cartSlice.actions
 
 export default cartSlice.reducer
